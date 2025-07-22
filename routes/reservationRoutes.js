@@ -5,6 +5,9 @@ const router = express.Router();
 const reservationController = require('../controllers/reservationControllers');
 
 /*Méthode GET : afficher l'ensemble des reservations*/
+router.get('/view', reservationController.renderReservationsList);
+
+/*Méthode GET : lire l'ensemble des reservations*/
 router.get('/', reservationController.getAllReservations);
 
 /*Méthode GET : lire informations reservation */

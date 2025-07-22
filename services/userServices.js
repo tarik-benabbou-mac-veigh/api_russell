@@ -1,4 +1,5 @@
 const userModel = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 /*Référence à la méthode GET (getAllUsers) userController.js */
 exports.getAllUsers = () => {
@@ -29,3 +30,8 @@ exports.updateUser = async(userId, userData) => {
 exports.deleteUser = (userId)=>{
     return userModel.findByIdAndDelete(userId);
 };  
+
+/*Référence à la méthode POST (authentification) userController.js */
+exports.findByEmail = (email) => {
+    return userModel.findOne({ userEmail: email });
+};

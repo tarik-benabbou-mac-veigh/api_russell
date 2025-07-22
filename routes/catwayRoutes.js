@@ -4,7 +4,13 @@ const router = express.Router();
 // Lien fichier catwayService.js : 
 const catwayController = require('../controllers/catwayControllers');
 
-/*Méthode GET : afficher l'ensemble des catways*/
+/* Méthode GET : afficher l'ensemble des catways */
+router.get('/view', catwayController.renderCatwayList);
+
+/* Méthode GET : Afficher le formulaire d'ajout d'un catway */
+router.get('/add', catwayController.renderNewCatwayForm);
+
+/*Méthode GET : lire l'ensemble des catways*/
 router.get('/', catwayController.getAllCatways);
 
 /*Méthode GET : lire informations catway */

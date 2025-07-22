@@ -1,5 +1,15 @@
 const reservationService = require('../services/reservationServices');
 
+/* Afficher la page HTML avec les réservations */
+exports.renderReservationsList = async (req, res) => {
+  try {
+    const reservations = await reservationService.getAllReservations();
+    res.render('reservations/reservationsList', { title: 'Liste des réservations', reservations });
+  } catch (error) {
+    res.status(500).send('Erreur serveur');
+  }
+};
+
 /*Référence à la méthode GET (getAllReservations) reservationRoutes.js */
 exports.getAllReservations = async(req,res)=>{
     const reservations = await reservationService.getAllReservations();

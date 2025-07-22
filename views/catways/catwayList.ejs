@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('../partials/head', { title: 'Liste des Catways' }) %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/nav') %>
+        <h1 class="container mt-5">Liste des Catways</h1>
+    </header>
+    
+    <main>
+        <div class="container mt-5">
+            <a href="/catways/add" class="btn btn-primary mb-3">Ajouter un nouveau catway</a>
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% catways.forEach(catway => { %>
+                        <tr>
+                            <td><%= catway.catwayNumber %></td>
+                            <td><%= catway.catwayType %></td>
+                            <td>
+                                <a href="/catways/<%= catway.catwayNumber %>/edit" class="btn btn-warning btn-sm">Modifier</a>
+                                <form action="/catways/<%= catway.catwayNumber %>?_method=DELETE" method="POST" style="display:inline;">
+                                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <footer>
+    <%- include('../partials/footer') %>
+    </footer>
+    <%- include('../partials/script') %>
+</body>
+</html>

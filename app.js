@@ -1,18 +1,13 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const createError = require('http-errors');
 const logger = require('morgan');
 const app = express();
 
-// Ajout de dotenv : 
-require('dotenv').config();
-
-// Import des fichiers routes : 
-const catwayRouter = require('./routes/catwayRoutes');
-const userRouter = require('./routes/userRoutes');
-const reservationRouter = require('./routes/reservationRoutes');
+// Import fichier indexRoutes : 
+const indexRoutes = require('../api/routes/indexRoutes');
 
 // Import fichier mongo.js : 
 const mongoDB = require('./db/mongo');
@@ -20,9 +15,12 @@ const mongoDB = require('./db/mongo');
 // Connexion à mongoDB :
 mongoDB.connexionMongoDB();
 
+// Ajout de dotenv : 
+require('dotenv').config();
+
 // Lien avec dossier views et fichiers ejs : 
-app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -33,14 +31,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Autorisation des requêtes externes avec cors() :
 app.use(cors());
 
-// Lien avec mes fichiers routes :
-app.use('/catway', catwayRouter);
-app.use('/user', userRouter);
-app.use('/reservation', reservationRouter);
+// Lien avec indexRoutes.js :
+app.use('/', indexRoutes);
 
-// catch 404 and forward to error handler
+// Erreur 404 :
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+// // Gestionnaire d'erreurs :
+// app.use(function(err, req, res, next) {
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+//   // rend la page d'erreur :
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
 module.exports = app;

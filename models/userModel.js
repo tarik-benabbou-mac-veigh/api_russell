@@ -21,13 +21,4 @@ const UserSchema = mongoose.Schema({
     },
 }, {timestamps: true});
 
-// Hasher le mot de passe une fois modifié :
-UserSchema.pre('save', function(next){
-    if(!this.isModified('userPassword')){
-        return next();
-    }
-    this.userPassword = bcrypt.hashSync(this.userPassword, 10);
-    next();
-});
-
 module.exports = mongoose.model('UserModel', UserSchema);

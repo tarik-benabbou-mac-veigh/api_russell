@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('../partials/head', { title: `Réservation d'un catway` }) %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/nav') %>
+        <div class="container mt-5">
+            <h1 class="text-center">Réservez votre catway</h1>
+        </div>
+    </header>
+    <main class="container mt-5">
+        <section class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" action="/catways/add">
+                    <div class="mb-3">
+                        <label for="catwayNumber" class="form-label fw-bold">Choisissez le numéro de catway</label>
+                        <select class="form-control" id="catwayNumber" name="catwayNumber" required>
+                            <option disabled selected hidden>Choisissez un numéro de catway</option>
+                            <option value="simple">C-101</option>
+                            <option value="double">C-102</option>
+                            <option value="double">C-103</option>
+                            <option value="double">C-104</option>
+                            <option value="double">C-105</option>
+                        </select>            
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="catwayType" class="form-label fw-bold">Quel type de catway souhaitez-vous louer ?</label>
+                        <select class="form-control" id="catwayType" name="catwayType" required>
+                            <option disabled selected hidden>Choisissez un type de catway</option>
+                            <option value="simple">Long</option>
+                            <option value="double">Short</option>
+                        </select> 
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="catwayState" class="form-label fw-bold">Quel est l'état du catway ?</label>
+                        <select class="form-control" id="catwayState" name="catwayState" required>
+                            <option disabled selected hidden>Choisissez l'état du catway</option>
+                            <option value="simple">Bon état</option>
+                            <option value="double">En réparation</option>
+                        </select> 
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Réserver un catway</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+        <%- include('../partials/script') %>
+</body>
+</html>

@@ -10,7 +10,7 @@ const CatwaySchema = mongoose.Schema({
     catwayType: {
         type: String, 
         trim: true,
-        required: [true,'long' || 'short'],
+        required: [true,'Long' || 'Short'],
     },
     catwayState: {
         type: String, 

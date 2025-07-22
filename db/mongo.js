@@ -8,7 +8,7 @@ exports.connexionMongoDB = async ()=>{
     /*Je vérifie la connexion*/
     try{
         await mongoose.connect(process.env.URL_MONGO, clientOptions)
-        console.log(`✅ Base de données MongoBD connectée.`);
+        console.log(`✅ Base de données MongoDB connectée.`);
     }catch(error){
         console.log(error);
     }
