@@ -18,11 +18,11 @@
                         <label for="catwayNumber" class="form-label fw-bold">Choisissez le numéro de catway</label>
                         <select class="form-control" id="catwayNumber" name="catwayNumber" required>
                             <option disabled selected hidden>Choisissez un numéro de catway</option>
-                            <option value="simple">C-101</option>
-                            <option value="double">C-102</option>
-                            <option value="double">C-103</option>
-                            <option value="double">C-104</option>
-                            <option value="double">C-105</option>
+                            <option>C-101</option>
+                            <option>C-102</option>
+                            <option>C-103</option>
+                            <option>C-104</option>
+                            <option>C-105</option>
                         </select>            
                     </div>
                     
@@ -30,24 +30,21 @@
                         <label for="catwayType" class="form-label fw-bold">Quel type de catway souhaitez-vous louer ?</label>
                         <select class="form-control" id="catwayType" name="catwayType" required>
                             <option disabled selected hidden>Choisissez un type de catway</option>
-                            <option value="simple">Long</option>
-                            <option value="double">Short</option>
+                            <option>Long</option>
+                            <option>Short</option>
                         </select> 
                     </div>
                     
                     <div class="mb-3">
                         <label for="catwayState" class="form-label fw-bold">Quel est l'état du catway ?</label>
-                        <select class="form-control" id="catwayState" name="catwayState" required>
-                            <option disabled selected hidden>Choisissez l'état du catway</option>
-                            <option value="simple">Bon état</option>
-                            <option value="double">En réparation</option>
-                        </select> 
+                        <input type="text" id="catwayState" name="catwayState">
                     </div>
                     
-                    <div class="d-grid">
+                    <div class="d-grid"> 
                         <button type="submit" class="btn btn-primary">Réserver un catway</button>
                     </div>
                 </form>
+                <a href="/catways/view">Retour liste</a>
             </div>
         </section>
     </main>

@@ -1,3 +1,4 @@
+const catwayModel = require('../models/catwayModel');
 const catwayService = require('../services/catwayServices');
 
 /* Afficher la page HTML avec les catways */
@@ -11,7 +12,7 @@ exports.renderCatwayList = async (req, res) => {
 };
 
 /* Afficher la page HTML du formulaire pour ajouter un nouveau catway */
-exports.renderNewCatwayForm = (req, res) => {
+exports.renderNewCatwayForm = async(req, res) => {
   try {
     res.render('catways/catwayForm', { title: 'Ajouter un nouveau Catway' });
   } catch (error) {
@@ -36,20 +37,62 @@ exports.getCatwayId = async(req,res)=>{
     }   
 };
 
-/*Référence à la méthode POST catwayRoutes.js */
-exports.createCatway = async(req,res)=>{
-    const newCatway = await catwayService.createCatway(req.body);
-    res.status(201).json(newCatway);
+/* Reçoit les données envoyées par catwayForm.ejs :*/
+exports.createCatway = async (req, res) => {
+  try {
+    await catwayService.createCatway(req.body);
+    res.redirect('/catways/view');
+  } catch (error) {
+    console.error('Erreur lors de la création du catway :', error);
+    res.status(500).send('Erreur lors de la création du catway');
+  }
 };
 
 /*Référence à la méthode PUT catwayRoutes.js */
-exports.updateCatway = async(req,res)=>{
-    const updateCatway = await catwayService.updateCatway(req.params.id, req.body);
-    res.json(updateCatway);
+exports.getEditCatwayForm = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const catway = await Catway.findById(id);
+    if (!catway) {
+      return res.status(404).send('Catway non trouvé');
+    }
+    res.render('catways/catwayEdit', { catway });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+exports.updateCatway = async (req, res) => {
+  const { id } = req.params;
+  const { catwayNumber, catwayType, catwayState } = req.body;
+
+  try {
+    await catwayService.updateCatway(id, {
+      catwayNumber,
+      catwayType,
+      catwayState
+    });
+    res.redirect('/catways/view');
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
+
+exports.renderEditCatwayForm = async (req, res) => {
+  try {
+    const catway = await catwayService.getCatwayId(req.params.id);
+    if (!catway) {
+      return res.status(404).send('Catway non trouvé');
+    }
+    res.render('catways/catwayEdit', { title: 'Modifier un Catway', catway });
+  } catch (error) {
+    console.error(`Erreur lors de l’affichage du formulaire d’édition :`, error);
+    res.status(500).send('Erreur serveur');
+  }
 };
 
 /*Référence à la méthode DELETE catwayRoutes.js */
 exports.deleteCatway = async(req,res)=>{
-    await catwayService.deleteCatway(req.params.id);
-    res.status(204).send('/');
+  await catwayService.deleteCatway(req.params.id);
+  res.redirect('/catways/view');
 };

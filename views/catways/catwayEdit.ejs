@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('../partials/head', { title: `Réservation d'un catway` }) %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/nav') %>
+        <div class="container mt-5">
+            <h1 class="text-center">Modifier votre catway</h1>
+        </div>
+    </header>
+    <main class="container mt-5">
+        <section class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" action="/catways/<%= catway._id %>?_method=PUT">
+                    <div class="mb-3">
+                        <label for="catwayNumber" class="form-label fw-bold">Choisissez le numéro de catway</label>
+                        <select class="form-control" id="catwayNumber" name="catwayNumber" required>
+                            <option disabled hidden <%= !catway.catwayNumber ? 'selected' : '' %>>Choisissez un numéro de catway</option>
+                            <option <%= catway.catwayNumber === 'C-101' ? 'selected' : '' %>>C-101</option>
+                            <option <%= catway.catwayNumber === 'C-102' ? 'selected' : '' %>>C-102</option>
+                            <option <%= catway.catwayNumber === 'C-103' ? 'selected' : '' %>>C-103</option>
+                            <option <%= catway.catwayNumber === 'C-104' ? 'selected' : '' %>>C-104</option>
+                            <option <%= catway.catwayNumber === 'C-105' ? 'selected' : '' %>>C-105</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="catwayType" class="form-label fw-bold">Quel type de catway souhaitez-vous louer ?</label>
+                        <select class="form-control" id="catwayType" name="catwayType" required>
+                            <option disabled hidden <%= !catway.catwayType ? 'selected' : '' %>>Choisissez un type de catway</option>
+                            <option <%= catway.catwayType === 'Long' ? 'selected' : '' %>>Long</option>
+                            <option <%= catway.catwayType === 'Short' ? 'selected' : '' %>>Short</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="catwayState" class="form-label fw-bold">Quel est l'état du catway ?</label>
+                        <input type="text" id="catwayState" name="catwayState" value="<%= catway.catwayState %>">
+                    </div>
+                    
+                    <div class="d-grid"> 
+                        <button type="submit" class="btn btn-primary">Modifier le catway</button>
+                    </div>
+                </form>
+                <a href="/catways/view">Retour liste</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+        <%- include('../partials/script') %>
+</body>
+</html>

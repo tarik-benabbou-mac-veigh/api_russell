@@ -22,6 +22,9 @@ router.post('/add', catwayController.createCatway);
 /*Méthode PUT : modifier un catway */
 router.put('/:id', catwayController.updateCatway);
 
+// Affiche le formulaire d'édition
+router.get('/:id/edit', catwayController.renderEditCatwayForm);
+
 /*Méthode DELETE : supprimer un catway */
 router.delete('/:id', catwayController.deleteCatway);
 

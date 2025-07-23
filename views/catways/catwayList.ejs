@@ -16,8 +16,9 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Nom</th>
+                        <th>Numéro</th>
                         <th>Type</th>
+                        <th>Etat</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -26,10 +27,11 @@
                         <tr>
                             <td><%= catway.catwayNumber %></td>
                             <td><%= catway.catwayType %></td>
+                            <td><%= catway.catwayState %></td>
                             <td>
-                                <a href="/catways/<%= catway.catwayNumber %>/edit" class="btn btn-warning btn-sm">Modifier</a>
-                                <form action="/catways/<%= catway.catwayNumber %>?_method=DELETE" method="POST" style="display:inline;">
-                                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                                <a href="/catways/<%= catway._id %>/edit" class="btn btn-warning btn-sm">Modifier</a>
+                                <form action="/catways/<%= catway._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                    <button type="submit" class="btn btn-danger btn-sm">Supprimer</button>
                                 </form>
                             </td>
                         </tr>
