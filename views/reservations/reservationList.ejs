@@ -10,12 +10,12 @@
     </header>
     <main>
         <div class="container mt-5">
-            <a href="/reservations/new" class="btn btn-success mb-3">Nouvelle Réservation</a>
+            <a href="/reservations/add" class="btn btn-success mb-3">Nouvelle Réservation</a>
             
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>Catway</th>
                         <th>Nom</th>
                         <th>Bateau</th>
                         <th>Date début</th>
@@ -32,8 +32,8 @@
                             <td><%= reservation.startDate %></td>
                             <td><%= reservation.endDate %></td>
                             <td>
-                                <a href="/reservations/<%= reservation.catwayNumber %>/edit" class="btn btn-warning btn-sm">Modifier</a>
-                                <form action="/reservations/<%= reservation.catwayNumber %>?_method=DELETE" method="POST" style="display:inline;">
+                                <a href="/reservations/<%= reservation._id %>/edit" class="btn btn-warning btn-sm">Modifier</a>
+                                <form action="/reservations/<%= reservation._id %>?_method=DELETE" method="POST" style="display:inline;">
                                     <button class="btn btn-danger btn-sm">Supprimer</button>
                                 </form>
                             </td>

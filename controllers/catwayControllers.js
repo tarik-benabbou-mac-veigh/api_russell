@@ -43,25 +43,12 @@ exports.createCatway = async (req, res) => {
     await catwayService.createCatway(req.body);
     res.redirect('/catways/view');
   } catch (error) {
-    console.error('Erreur lors de la création du catway :', error);
-    res.status(500).send('Erreur lors de la création du catway');
+    console.error(`Erreur lors de l'ajout du catway :`, error);
+    res.status(500).send(`Erreur lors de l'ajout du catway :`);
   }
 };
 
 /*Référence à la méthode PUT catwayRoutes.js */
-exports.getEditCatwayForm = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const catway = await Catway.findById(id);
-    if (!catway) {
-      return res.status(404).send('Catway non trouvé');
-    }
-    res.render('catways/catwayEdit', { catway });
-  } catch (error) {
-    res.status(500).send(error.message);
-  }
-};
-
 exports.updateCatway = async (req, res) => {
   const { id } = req.params;
   const { catwayNumber, catwayType, catwayState } = req.body;
@@ -70,7 +57,7 @@ exports.updateCatway = async (req, res) => {
     await catwayService.updateCatway(id, {
       catwayNumber,
       catwayType,
-      catwayState
+      catwayState,
     });
     res.redirect('/catways/view');
   } catch (error) {

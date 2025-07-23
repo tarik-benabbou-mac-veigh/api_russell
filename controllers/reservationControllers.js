@@ -4,11 +4,22 @@ const reservationService = require('../services/reservationServices');
 exports.renderReservationsList = async (req, res) => {
   try {
     const reservations = await reservationService.getAllReservations();
-    res.render('reservations/reservationsList', { title: 'Liste des réservations', reservations });
+    res.render('reservations/reservationList', { title: 'Liste des réservations', reservations });
   } catch (error) {
     res.status(500).send('Erreur serveur');
   }
 };
+
+/* Afficher la page HTML du formulaire pour ajouter un nouveau bateau */
+exports.renderNewReservationForm = async(req, res) => {
+  try {
+    res.render('reservations/reservationForm', { title: 'Ajouter un nouveau bateau' });
+  } catch (error) {
+    console.error('Erreur lors du rendu du formulaire de nouveau bateau :', error);
+    res.status(500).send('Erreur serveur lors du chargement du formulaire.');
+  }
+};
+
 
 /*Référence à la méthode GET (getAllReservations) reservationRoutes.js */
 exports.getAllReservations = async(req,res)=>{
@@ -28,18 +39,49 @@ exports.getReservationId = async(req,res)=>{
 
 /*Référence à la méthode POST reservationRoutes.js */
 exports.createReservation = async(req,res)=>{
-    const newReservation = await reservationService.createReservation(req.body);
-    res.status(201).json(newReservation);
+    try{
+        await reservationService.createReservation(req.body);
+        res.redirect('/reservations/view');
+    }catch (error) {
+        console.error(`Erreur lors de l'ajout du bateau:`, error);
+        res.status(500).send(`Erreur lors de l'ajout du bateau`);
+    }
 };
 
 /*Référence à la méthode PUT reservationRoutes.js */
 exports.updateReservation = async(req,res)=>{
-    const updateReservation = await reservationService.updateReservation(req.params.id, req.body);
-    res.json(updateReservation);
+    const { id } = req.params;
+    const { catwayNumber, clientName, boatName, startDate, endDate} = req.body;
+
+    try{
+        await reservationService.updateReservation(id, {
+            catwayNumber,
+            clientName,
+            boatName,
+            startDate,
+            endDate,
+        });
+        res.redirect('/reservations/view');
+    } catch (error){
+        res.status(500).send(error.message);
+    }
+};
+
+exports.renderEditReservationForm = async(req,res)=>{
+    try{
+        const reservation = await reservationService.getReservationId(req.params.id);
+        if (!reservation){
+            return res.status(404).send('Reservation non trouvé');
+        }
+        res.render('reservations/reservationEdit', {title: 'Modifier un bateau', reservation});
+    } catch (error) {
+        console.error(`Erreur lors de l’affichage du formulaire d’édition :`, error);
+        res.status(500).send(`Erreur serveur`);
+    }
 };
 
 /*Référence à la méthode DELETE reservationRoutes.js */
 exports.deleteReservation = async(req,res)=>{
     await reservationService.deleteReservation(req.params.id);
-    res.status(204).send('/');
+    res.redirect('/reservations/view');
 };

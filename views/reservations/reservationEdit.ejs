@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('../partials/head', { title: `Modification d'un bateau` }) %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/nav') %>
+        <div class="container mt-5">
+            <h1 class="text-center">Modifier votre bateau</h1>
+        </div>
+    </header>
+    <main class="container mt-5">
+        <section class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" action="/reservations/<%= reservation._id %>?_method=PUT">
+
+                    <div class="mb-3">
+                        <label for="catwayNumber" class="form-label fw-bold">Choisissez le numéro de catway</label>
+                        <select class="form-control" id="catwayNumber" name="catwayNumber" required>
+                            <option disabled hidden <%= !reservation.catwayNumber ? 'selected' : '' %>>Choisissez un numéro de catway</option>
+                            <option <%= reservation.catwayNumber === 'C-101' ? 'selected' : '' %>>C-101</option>
+                            <option <%= reservation.catwayNumber === 'C-102' ? 'selected' : '' %>>C-102</option>
+                            <option <%= reservation.catwayNumber === 'C-103' ? 'selected' : '' %>>C-103</option>
+                            <option <%= reservation.catwayNumber === 'C-104' ? 'selected' : '' %>>C-104</option>
+                            <option <%= reservation.catwayNumber === 'C-105' ? 'selected' : '' %>>C-105</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="clientName" class="form-label fw-bold">Renseignez votre nom pour la réservation</label>
+                        <input type="text" id="clientName" name="clientName" value="<%= reservation.clientName %>">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="boatName" class="form-label fw-bold">Choisissez votre bateau</label>
+                        <select class="form-control" id="boatName" name="boatName" required>
+                            <option value="La Méduse" <%= reservation.boatName === 'La Méduse' ? 'selected' : '' %>>La Méduse</option>
+                            <option value="Le Maurice" <%= reservation.boatName === 'Le Maurice' ? 'selected' : '' %>>Le Maurice</option>
+                            <option value="Le Corse" <%= reservation.boatName === 'Le Corse' ? 'selected' : '' %>>Le Corse</option>
+                            <option value="La Rochelle" <%= reservation.boatName === 'La Rochelle' ? 'selected' : '' %>>La Rochelle</option>
+                            <option value="La Bounty" <%= reservation.boatName === 'La Bounty' ? 'selected' : '' %>>La Bounty</option>
+                        </select>   
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="startDate" class="form-label fw-bold">Date de début</label>
+                        <input type="date" id="startDate" name="startDate">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="endDate" class="form-label fw-bold">Date de fin</label>
+                        <input type="date" id="endDate" name="endDate">
+                    </div>
+                    
+                    <div class="d-grid"> 
+                        <button type="submit" class="btn btn-primary">Modifier le bateau</button>
+                    </div>
+                </form>
+                <a href="/reservations/view">Retour liste</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+        <%- include('../partials/script') %>
+</body>
+</html>
