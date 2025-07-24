@@ -4,7 +4,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const createError = require('http-errors');
 const logger = require('morgan');
-const methodOverride = require('method-override'); 
+const methodOverride = require('method-override');
+const connexionRoutes = require('./routes/connexionRoutes');
 const app = express();
 
 // Import fichier indexRoutes : 
@@ -32,6 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Autorisation des requêtes externes avec cors() :
 app.use(cors());
+
+// Lien avec le connexionRoute :
+app.use('/', connexionRoutes);
 
 // Lien avec indexRoutes.js :
 app.use('/', indexRoutes);

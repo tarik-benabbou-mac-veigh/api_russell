@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('../partials/head', { title: 'Liste des utilisateurs' }) %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/nav') %>
+        <h1 class="container mt-5">Utilisateurs</h1>
+    </header>
+    <main>
+        <div class="container mt-5">
+            <a href="/users/add" class="btn btn-success mb-3">Nouvel utilisateur</a>
+            
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.userName %></td>
+                            <td><%= user.userEmail %></td>
+                            <td>
+                                <a href="/users/<%= user._id %>/edit" class="btn btn-warning btn-sm">Modifier</a>
+                                <form action="/users/<%= user._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                    <button class="btn btn-danger btn-sm">Supprimer</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+                <a href="/dashboard/view">Retour tableau de bord</a>
+
+        </div>
+    </main>
+        <footer>
+            <%- include('../partials/footer') %>
+</footer>
+
+<%- include('../partials/script') %>
+</body>
+</html>

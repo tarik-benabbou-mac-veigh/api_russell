@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('../partials/head', { title: `Modifier un utilisateur` }) %>
+</head>
+<body>
+    <header>
+        <%- include('../partials/nav') %>
+        <div class="container mt-5">
+            <h1 class="text-center">Modifier un utilisteur</h1>
+        </div>
+    </header>
+    <main class="container mt-5">
+        <section class="row justify-content-center">
+            <div class="col-md-6">
+                <form method="post" action="/users/<%= user._id %>?_method=PUT">
+                    <div class="mb-3">
+                        <label for="userName" class="form-label fw-bold">Nom d'utilisateur</label>
+                        <input type="text" name="userName" id="userName" class="form-control" value="<%= user.userName %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userEmail" class="form-label fw-bold">Adresse email</label>
+                        <input type="text" name="userEmail" id="userEmail" class="form-control" value="<%= user.userEmail %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="userPassword" class="form-label fw-bold">Mot de passe</label>
+                        <input type="text" name="userPassword" id="userPassword" class="form-control" value="<%= user.userPassword %>" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                </form>
+                <a href="/users/view">Retour liste utilisateur</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <%- include('../partials/footer') %>
+    </footer>
+        <%- include('../partials/script') %>
+</body>
+</html>
