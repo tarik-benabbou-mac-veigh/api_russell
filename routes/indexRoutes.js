@@ -5,6 +5,8 @@ const router = express.Router();
 const catwayRouter = require('./catwayRoutes');
 const userRouter = require('./userRoutes');
 const reservationRouter = require('./reservationRoutes');
+const connexionRouter = require('./connexionRoutes');
+const dashboardRouter = require('./dashboardRoutes');
 
 // Page d'accueil : 
 router.get('/', async(req, res)=>{
@@ -16,5 +18,7 @@ router.get('/', async(req, res)=>{
 router.use('/catways', catwayRouter);
 router.use('/users', userRouter);
 router.use('/reservations', reservationRouter);
+router.use('/connexion', connexionRouter);
+router.use('/dashboard', dashboardRouter);
 
 module.exports = router;

@@ -41,7 +41,13 @@ exports.getUserId = async(req, res)=>{
 /*Référence à la méthode POST userRoute.js */
 exports.createUser = async(req, res)=>{
   try{
-    await userService.createUser(req.body);
+    const hashedPassword = await bcrypt.hash(req.body.userPassword, 10);
+    await userService.createUser({
+      userName: req.body.userName,
+      userEmail: req.body.userEmail,
+      userPassword: hashedPassword,
+    });
+
     res.redirect('/users/view');
   }catch(error){
     console.error(`Erreur lors de l'ajout d'un nouvel utilisateur:`, error);
@@ -55,11 +61,14 @@ exports.updateUser = async(req, res)=>{
     const { userName, userEmail, userPassword} = req.body;
 
   try{
+    const hashedPassword = await bcrypt.hash(userPassword, 10);
+
     await userService.updateUser(id, {
-      userName,
-      userEmail,
-      userPassword,
+      userName: req.body.userName,
+      userEmail : req.body.userEmail,
+      userPassword: hashedPassword,
     });
+    
     res.redirect('/users/view');
   }catch(error){
     res.status(500).send(error.message);
