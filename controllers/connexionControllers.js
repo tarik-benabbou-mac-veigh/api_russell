@@ -7,8 +7,9 @@ exports.loginUser = async (req, res) => {
 
   try {
     /* Vérification si l'utilisateur existe ou non */ 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ userEmail: email });
     console.log('Tentative de connexion avec :', email, password);
+    console.log(`Mot de passe : ${user.userPassword}`);
 
     if (!user) {
       console.log('Utilisateur non trouvé');
@@ -40,4 +41,10 @@ exports.loginUser = async (req, res) => {
     console.error(error);
     res.status(500).send('Erreur interne du serveur');
   }
+
+};
+/* Se déconnecter de l'API */
+exports.logout = (req, res) => {
+res.clearCookie('token'); 
+res.redirect('/');
 };

@@ -8,7 +8,7 @@ const methodOverride = require('method-override');
 const app = express();
 
 // Import fichier indexRoutes : 
-const indexRoutes = require('../api/routes/indexRoutes');
+const indexRoutes = require('./routes/indexRoutes');
 
 // Import fichier mongo.js : 
 const mongoDB = require('./db/mongo');

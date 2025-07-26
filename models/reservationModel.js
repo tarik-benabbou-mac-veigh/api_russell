@@ -6,6 +6,11 @@ const ReservationSchema = mongoose.Schema({
         trim: true,
         required: [true, `Ajoutez le numéro de catway réservé`],
     },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserModel',
+        required: true,
+    },
     clientName: {
         type: String, 
         trim: true,

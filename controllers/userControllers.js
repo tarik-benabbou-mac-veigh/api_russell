@@ -95,14 +95,14 @@ exports.deleteUser = async(req, res)=>{
 };
 
 exports.authenticateUser = async (req, res) => {
-  const { userEmail, userPassword } = req.body;
+  const { email, password } = req.body;
   try {
     // Vérification de l'adresse email :  
-    const user = await userService.findByEmail(userEmail);
+    const user = await userService.findByEmail({userEmail: email});
     if (!user) {
       return res.status(404).json({ message: 'Utilisateur non trouvé' });
     }
-    const verificationEmail = await bcrypt.compare(userPassword, user.userPassword);
+    const verificationEmail = await bcrypt.compare(password, user.userPassword);
     if (!verificationEmail) {
       return res.status(401).json({ message: 'Mot de passe incorrect' });
     }

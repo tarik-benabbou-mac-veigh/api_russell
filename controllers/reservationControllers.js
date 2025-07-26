@@ -1,4 +1,5 @@
 const reservationService = require('../services/reservationServices');
+const Reservation = require('../models/reservationModel');
 
 /* Afficher la page HTML avec les réservations */
 exports.renderReservationsList = async (req, res) => {
@@ -38,13 +39,34 @@ exports.getReservationId = async(req,res)=>{
 };
 
 /*Référence à la méthode POST reservationRoutes.js */
-exports.createReservation = async(req,res)=>{
+// exports.createReservation = async(req,res)=>{
+//     try{
+//         await reservationService.createReservation(req.body);
+//         res.redirect('/reservations/view');
+//     }catch (error) {
+//         console.error(`Erreur lors de l'ajout du bateau:`, error);
+//         res.status(500).send(`Erreur lors de l'ajout du bateau`);
+//     }
+// };
+exports.createReservation = async (req,res)=>{
     try{
-        await reservationService.createReservation(req.body);
-        res.redirect('/reservations/view');
-    }catch (error) {
-        console.error(`Erreur lors de l'ajout du bateau:`, error);
-        res.status(500).send(`Erreur lors de l'ajout du bateau`);
+        if(!req.user || !req.user.userId){
+            return res.status(401).send('Utilisateur non trouvé');
+        }
+        const { catwayNumber, clientName, boatName, startDate, endDate } = req.body;
+
+        const newReservation = await Reservation.create({
+            catwayNumber,
+            userId : req.user.userId,
+            clientName,
+            boatName, 
+            startDate, 
+            endDate,
+        });
+        res.redirect('/dashboard');
+    }catch{
+        console.error("Erreur lors de la création de la réservation :", error);
+        res.status(500).send('Erreur lors de la création de la réservation.');
     }
 };
 

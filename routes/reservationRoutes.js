@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middlewares/authentication');
 
 /* Lien fichier reservationService.js */ 
 const reservationController = require('../controllers/reservationControllers');
 
 /* Méthode GET : afficher l'ensemble des reservations */
-router.get('/view', reservationController.renderReservationsList);
+router.get('/view', auth, reservationController.renderReservationsList);
 
 /* Méthode GET : Afficher le formulaire d'ajout d'un bateau */
-router.get('/add', reservationController.renderNewReservationForm);
+router.get('/add', auth, reservationController.renderNewReservationForm);
 
 /* Méthode GET : lire l'ensemble des reservations */
 router.get('/', reservationController.getAllReservations);
@@ -17,7 +18,7 @@ router.get('/', reservationController.getAllReservations);
 router.get('/:id', reservationController.getReservationId);
 
 /* Méthode POST : ajouter un reservation */
-router.post('/add', reservationController.createReservation);
+router.post('/add', auth, reservationController.createReservation);
 
 /* Méthode PUT : modifier un reservation */
 router.put('/:id', reservationController.updateReservation);

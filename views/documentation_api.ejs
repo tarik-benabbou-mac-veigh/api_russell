@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <%- include('partials/head', { title: `Documentation de l'API` }) %>
+</head>
+<body>
+    <main class="container py-5">
+        <div class="mb-5 text-center">
+            <h1 class="display-4">Documentation de l'API</h1>
+            <p class="lead">Guide d'utilisation des routes de votre application</p>
+        </div>
+
+        <section class="mb-5">
+            <h2 class="h4 text-primary">Authentification</h2>
+            <p>Pour obtenir un token JWT, envoyez une requête POST à :</p>
+            <pre class="bg-light p-3 rounded"><code>http://localhost:3000/</code></pre>
+            <p><strong>Body JSON :</strong></p>
+            <pre class="bg-light p-3 rounded"><code>{
+    "email": "alain@gmail.com",
+    "password": "2025"
+}</code></pre>
+            <p class="text-success">Réponse : un token JWT si les informations sont valides.</p>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4 text-primary">Utilisateurs</h2>
+            <p>
+                Pour accéder directement à la page de création d'un nouvel utilisateur :
+                <a href="http://localhost:3000/users/add" target="_blank">http://localhost:3000/users/add</a><br>
+                (après avoir lancé le serveur avec <code>npm run start</code>)
+            </p>
+            <ul class="list-group">
+                <li class="list-group-item"><code>GET /users/view</code> → Affiche la liste des utilisateurs (HTML)</li>
+                <li class="list-group-item"><code>GET /users/add</code> → Formulaire d'ajout utilisateur (HTML)</li>
+                <li class="list-group-item"><code>GET /users/:id</code> → Détails utilisateur (JWT requis)</li>
+                <li class="list-group-item"><code>POST /users/add</code> → Ajouter un utilisateur</li>
+                <li class="list-group-item"><code>PUT /users/:id</code> → Modifier un utilisateur (JWT requis)</li>
+                <li class="list-group-item"><code>DELETE /users/:id</code> → Supprimer un utilisateur (JWT requis)</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4 text-primary">Réservations</h2>
+            <p>
+                Pour réserver un bateau, rendez-vous sur :
+                <a href="http://localhost:3000/reservations/add" target="_blank">http://localhost:3000/reservations/add</a><br>
+                Ou cliquez sur <strong>Réservation</strong> dans le menu du tableau de bord.
+            </p>
+            <ul class="list-group">
+                <li class="list-group-item"><code>GET /reservations/view</code> → Liste des réservations (HTML)</li>
+                <li class="list-group-item"><code>GET /reservations/add</code> → Formulaire d'ajout (HTML)</li>
+                <li class="list-group-item"><code>GET /reservations/:id</code> → Détail d'une réservation</li>
+                <li class="list-group-item"><code>POST /reservations/add</code> → Créer une réservation</li>
+                <li class="list-group-item"><code>PUT /reservations/:id</code> → Modifier une réservation</li>
+                <li class="list-group-item"><code>DELETE /reservations/:id</code> → Supprimer une réservation</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4 text-primary">Catways</h2>
+            <p>
+                Fonctionnement similaire à la réservation, avec URL :
+                <a href="http://localhost:3000/catways/add" target="_blank">http://localhost:3000/catways/add</a><br>
+                ou via le bouton <strong>Catways</strong> du tableau de bord.
+            </p>
+            <ul class="list-group">
+                <li class="list-group-item"><code>GET /catways/view</code> → Liste des catways (HTML)</li>
+                <li class="list-group-item"><code>GET /catways/add</code> → Formulaire d'ajout (HTML)</li>
+                <li class="list-group-item"><code>GET /catways/:id</code> → Détail d’un catway</li>
+                <li class="list-group-item"><code>POST /catways/add</code> → Créer un catway</li>
+                <li class="list-group-item"><code>PUT /catways/:id</code> → Modifier un catway</li>
+                <li class="list-group-item"><code>DELETE /catways/:id</code> → Supprimer un catway</li>
+            </ul>
+        </section>
+
+        <section class="mb-5">
+            <h2 class="h4 text-primary">Accès API sécurisé</h2>
+            <p>Certaines routes nécessitent un <strong>token JWT</strong> dans l’en-tête :</p>
+            <pre class="bg-light p-3 rounded"><code>Authorization: Bearer &lt;token&gt;</code></pre>
+        </section>
+
+        <div class="text-center">
+            <h3 class="mb-4">Bonne "navigation" à travers cette API !</h3>
+            <a href="/dashboard" class="btn btn-primary">Retour au tableau de bord</a>
+        </div>
+    </main>
+
+    <footer class="mt-5">
+        <%- include('partials/footer') %>
+    </footer>
+</body>
+</html>
